@@ -1,0 +1,54 @@
+package com.finance.controller;
+
+import com.finance.model.Expense;
+import com.finance.model.Income;
+import com.finance.model.FinancialGoal;
+import com.finance.service.FinanceService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@Controller
+public class FinanceController {
+
+    @Autowired
+    private FinanceService financeService;
+
+    // Home page - Show expenses, incomes, and goals
+    @GetMapping("/")
+    public String home(Model model) {
+        List<Expense> expenses = financeService.getAllExpenses();
+        List<Income> incomes = financeService.getAllIncomes();
+        List<FinancialGoal> goals = financeService.getAllFinancialGoals();
+
+        model.addAttribute("expenses", expenses);
+        model.addAttribute("incomes", incomes);
+        model.addAttribute("goals", goals);
+
+        return "index";
+    }
+
+    // Add Expense
+    @PostMapping("/add-expense")
+    public String addExpense(@ModelAttribute Expense expense) {
+        financeService.addExpense(expense);
+        return "redirect:/";
+    }
+
+    // Add Income
+    @PostMapping("/add-income")
+    public String addIncome(@ModelAttribute Income income) {
+        financeService.addIncome(income);
+        return "redirect:/";
+    }
+
+    // Add Financial Goal
+    @PostMapping("/add-goal")
+    public String addGoal(@ModelAttribute FinancialGoal goal) {
+        financeService.addFinancialGoal(goal);
+        return "redirect:/";
+    }
+}
