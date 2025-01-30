@@ -1,0 +1,53 @@
+import com.finance.model.Expense;
+import com.finance.model.Income;
+import com.finance.model.FinancialGoal;
+import com.finance.repository.ExpenseRepository;
+import com.finance.repository.IncomeRepository;
+import com.finance.repository.FinancialGoalRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class FinanceService {
+
+    @Autowired
+    private ExpenseRepository expenseRepository;
+    
+    @Autowired
+    private IncomeRepository incomeRepository;
+    
+    @Autowired
+    private FinancialGoalRepository financialGoalRepository;
+
+    // Add Expense
+    public void addExpense(Expense expense) {
+        expenseRepository.save(expense);
+    }
+
+    // Add Income
+    public void addIncome(Income income) {
+        incomeRepository.save(income);
+    }
+
+    // Add Financial Goal
+    public void addFinancialGoal(FinancialGoal financialGoal) {
+        financialGoalRepository.save(financialGoal);
+    }
+
+    // Get All Expenses
+    public List<Expense> getAllExpenses() {
+        return expenseRepository.findAll();
+    }
+
+    // Get All Incomes
+    public List<Income> getAllIncomes() {
+        return incomeRepository.findAll();
+    }
+
+    // Get All Financial Goals
+    public List<FinancialGoal> getAllFinancialGoals() {
+        return financialGoalRepository.findAll();
+    }
+}
